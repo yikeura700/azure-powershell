@@ -19,6 +19,7 @@
 -->
 
 ## Upcoming Release
+* Supported Web Account Manager (WAM) as the default interactive login experience.
 * Supported tenant domain as input while using `Connect-AzAccount` with parameter `Tenant`. [#19471]
 * Upgraded Azure.Identity to 1.6.1
 * Changed target framework of AuthenticationAssemblyLoadContext to netcoreapp3.1.
@@ -37,7 +38,7 @@
 
 ## Version 2.9.0
 * Supported exporting and importing configurations by `Export-AzConfig` and `Import-AzConfig`.
-* Fixed an issue that Az.Accounts may fail to be imported in parallel PowerShell processes. [#18321] 
+* Fixed an issue that Az.Accounts may fail to be imported in parallel PowerShell processes. [#18321]
 * Fixed incorrect access token [#18105]
 * Upgraded version of Microsoft.Identity.Client for .NET Framework. [#18495]
 * Fixed an issue that Az.Accounts failed to be imported if multiple environment variables, which only differ by case, are set. [#18304]
