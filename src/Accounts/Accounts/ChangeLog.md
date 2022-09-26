@@ -19,7 +19,9 @@
 -->
 
 ## Upcoming Release
-* Supported Web Account Manager (WAM) as the default interactive login experience.
+
+## Version 2.11.0
+* Supported Web Account Manager (WAM) as the default interactive login experience. Note that Microsoft account (MSA) type is not supported.
 * Supported tenant domain as input while using `Connect-AzAccount` with parameter `Tenant`. [#19471]
 * Upgraded Azure.Identity to 1.6.1
 * Changed target framework of AuthenticationAssemblyLoadContext to netcoreapp3.1.
