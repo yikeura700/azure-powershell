@@ -1,7 +1,7 @@
 ---
 external help file:
 Module Name: Az.CostManagement
-online version: https://docs.microsoft.com/powershell/module/az.costmanagement/invoke-azcostmanagementquery
+online version: https://learn.microsoft.com/powershell/module/az.costmanagement/invoke-azcostmanagementquery
 schema: 2.0.0
 ---
 
@@ -324,4 +324,5 @@ To create the parameters described below, construct a hash table containing the 
   - `Type <QueryColumnType>`: Has type of the column to group.
 
 ## RELATED LINKS
+
 

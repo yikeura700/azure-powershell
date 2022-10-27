@@ -1,7 +1,7 @@
 ---
 external help file:
 Module Name: Az.CostManagement
-online version: https://docs.microsoft.com/powershell/module/az.costmanagement/get-azcostmanagementexport
+online version: https://learn.microsoft.com/powershell/module/az.costmanagement/get-azcostmanagementexport
 schema: 2.0.0
 ---
 
@@ -175,4 +175,5 @@ To create the parameters described below, construct a hash table containing the 
   - `[ViewName <String>]`: View name
 
 ## RELATED LINKS
+
 
