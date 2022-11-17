@@ -46,10 +46,10 @@ namespace Microsoft.Azure.Commands.Compute.Automation
 
                 if (ShouldGetByName(resourceGroupName, diskName))
                 {
-                    var result = DisksClient.Get(resourceGroupName, diskName);
-                    var psObject = new PSDisk();
-                    ComputeAutomationAutoMapperProfile.Mapper.Map<Disk, PSDisk>(result, psObject);
-                    WriteObject(psObject);
+                    Disk result = DisksClient.Get(resourceGroupName, diskName);
+                    //var psObject = new PSDisk();
+                    //ComputeAutomationAutoMapperProfile.Mapper.Map<Disk, PSDisk>(result, psObject);
+                    WriteObject(new PSDisk(result,resourceGroupName));
                 }
                 else if (ShouldListByResourceGroup(resourceGroupName, diskName))
                 {

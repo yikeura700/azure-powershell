@@ -38,6 +38,7 @@ namespace Microsoft.Azure.Commands.Compute.Automation.Models
                 Match m = r.Match(Id);
                 return m.Success ? m.Groups["rgname"].Value : null;
             }
+            set { }
         }
 
         public string ManagedBy { get; set; }
@@ -77,5 +78,49 @@ namespace Microsoft.Azure.Commands.Compute.Automation.Models
         public string PublicNetworkAccess { get; set; }
         public SupportedCapabilities SupportedCapabilities { get; set; }
         public string DataAccessAuthMode { get; set; }
+
+        public PSDisk() { }
+
+        public PSDisk(Disk disk, string resourceGroupName)
+        {
+            this.ResourceGroupName = resourceGroupName;
+            this.ManagedBy = disk.ManagedBy;
+            this.ManagedByExtended = disk.ManagedByExtended;
+            this.Sku = disk.Sku;
+            this.Zones = disk.Zones;
+            this.TimeCreated = disk.TimeCreated;
+            this.OsType = disk.OsType;
+            this.HyperVGeneration = disk.HyperVGeneration;
+            this.CreationData = disk.CreationData;
+            this.DiskSizeGB = disk.DiskSizeGB;
+            this.DiskSizeBytes = disk.DiskSizeBytes;
+            this.UniqueId = disk.UniqueId;
+            this.EncryptionSettingsCollection = disk.EncryptionSettingsCollection;
+            this.ProvisioningState = disk.ProvisioningState;
+            this.DiskIOPSReadWrite = disk.DiskIOPSReadWrite;
+            this.DiskMBpsReadWrite = disk.DiskMBpsReadWrite;
+            this.DiskIOPSReadOnly = disk.DiskIOPSReadOnly;
+            this.DiskMBpsReadOnly = disk.DiskMBpsReadOnly;
+            this.DiskState = disk.DiskState;
+            this.Encryption = disk.Encryption;
+            this.MaxShares = disk.MaxShares;
+            this.ShareInfo = disk.ShareInfo;
+            this.Id = disk.Id;
+            this.Name = disk.Name;
+            this.Type = disk.Type;
+            this.Location = disk.Location;
+            this.ExtendedLocation = disk.ExtendedLocation;
+            this.Tags = disk.Tags;
+            this.NetworkAccessPolicy = disk.NetworkAccessPolicy;
+            this.DiskAccessId = disk.DiskAccessId;
+            this.Tier = disk.Tier;
+            this.BurstingEnabled = disk.BurstingEnabled;
+            this.PurchasePlan = disk.PurchasePlan != null ? new PSPurchasePlan(disk.PurchasePlan) : null;
+            this.SupportsHibernation = disk.SupportsHibernation;
+            this.SecurityProfile = disk.SecurityProfile;
+            this.PublicNetworkAccess = disk.PublicNetworkAccess;
+            this.SupportedCapabilities = disk.SupportedCapabilities;
+            this.DataAccessAuthMode = disk.DataAccessAuthMode;
+    }
     }
 }

@@ -15,5 +15,24 @@ namespace Microsoft.Azure.Commands.Compute.Automation.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public IDictionary<string, string> Tags { get; set; }
+        public ExtendedLocation ExtendedLocation { get; set; }
+
+        public PSDiskAccess(DiskAccess diskAccess)
+        {
+            //this.ResourceGroupName = resourceGroupName
+            this.PrivateEndpointConnections = diskAccess.PrivateEndpointConnections;
+            this.ProvisioningState = diskAccess.ProvisioningState;
+            this.TimeCreated = diskAccess.TimeCreated;
+            this.Location = diskAccess.Location;
+            this.Id = diskAccess.Id;
+            this.Name = diskAccess.Name;
+            this.Type = diskAccess.Type;
+            this.Tags = diskAccess.Tags;
+            this.ExtendedLocation = diskAccess.ExtendedLocation;
+        }
+
+        public PSDiskAccess() { }
     }
+
+
 }

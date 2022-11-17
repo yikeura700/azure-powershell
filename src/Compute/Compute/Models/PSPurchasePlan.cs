@@ -11,5 +11,15 @@ namespace Microsoft.Azure.Commands.Compute.Automation.Models
         public string Name { get; set; }
         public string Product { get; set; }
         public string PromotionCode { get; set; }
+
+        public PSPurchasePlan() { }
+
+        public PSPurchasePlan(PurchasePlan pp)
+        {
+            this.Publisher = pp.Publisher;
+            this.Name = pp.Name;
+            this.Product = pp.Product;
+            this.PromotionCode = pp.PromotionCode;
+        }
     }
 }

@@ -66,10 +66,10 @@ namespace Microsoft.Azure.Commands.Compute.Automation
 
                 if (ShouldGetByName(resourceGroupName, diskAccessName))
                 {
-                    var result = DiskAccessesClient.Get(resourceGroupName, diskAccessName);
-                    var psObject = new PSDiskAccess();
-                    ComputeAutomationAutoMapperProfile.Mapper.Map<DiskAccess, PSDiskAccess>(result, psObject);
-                    WriteObject(psObject);
+                    DiskAccess diskAccess = DiskAccessesClient.Get(resourceGroupName, diskAccessName);
+                    //var psObject = new PSDiskAccess();
+                    //ComputeAutomationAutoMapperProfile.Mapper.Map<DiskAccess, PSDiskAccess>(result, psObject);
+                    WriteObject(new PSDiskAccess(diskAccess));
                 }
                 else if (ShouldListByResourceGroup(resourceGroupName, diskAccessName))
                 {
