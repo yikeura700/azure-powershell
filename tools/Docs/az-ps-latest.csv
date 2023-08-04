@@ -103,7 +103,7 @@ pac101,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-rele
 pac102,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.MonitoringSolutions.0.1.0.nupkg;sourceType=sa]Az.MonitoringSolutions,0.1.0
 pac103,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.MySql.1.1.1.nupkg;sourceType=sa]Az.MySql,1.1.1
 pac104,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.NetAppFiles.0.13.0.nupkg;sourceType=sa]Az.NetAppFiles,0.13.0
-pac105,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.Network.6.1.1.nupkg;sourceType=sa]Az.Network,6.1.1
+pac105,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.Network.6.2.0.nupkg;sourceType=sa]Az.Network,6.2.0
 pac106,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.NetworkFunction.0.1.2.nupkg;sourceType=sa]Az.NetworkFunction,0.1.2
 pac107,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.NewRelic.0.1.0.nupkg;sourceType=sa]Az.NewRelic,0.1.0
 pac108,[ps=true;customSource=https://azpspackage.blob.core.windows.net/docs-release/Az.Nginx.0.1.0.nupkg;sourceType=sa]Az.Nginx,0.1.0

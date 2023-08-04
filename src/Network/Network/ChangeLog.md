@@ -19,6 +19,8 @@
 --->
 
 ## Upcoming Release
+
+## Version 6.2.0
 * Removed support for perimeter-based network security perimeter access rule creation/updation.
   - `Update-AzNetworkSecurityPerimeterAccessRule [-NetworkSecurityPerimeters <ArrayList>]`
   - `Create-AzNetworkSecurityPerimeterAccessRule [-NetworkSecurityPerimeters <ArrayList>]`
