@@ -25,8 +25,41 @@ Get the test notifications by the notification id
 ### [New-AzActionGroup](New-AzActionGroup.md)
 Create a new action group or update an existing one.
 
+### [New-AzActionGroupArmRoleReceiverObject](New-AzActionGroupArmRoleReceiverObject.md)
+Create an in-memory object for ArmRoleReceiver.
+
+### [New-AzActionGroupAutomationRunbookReceiverObject](New-AzActionGroupAutomationRunbookReceiverObject.md)
+Create an in-memory object for AutomationRunbookReceiver.
+
+### [New-AzActionGroupAzureAppPushReceiverObject](New-AzActionGroupAzureAppPushReceiverObject.md)
+Create an in-memory object for AzureAppPushReceiver.
+
+### [New-AzActionGroupAzureFunctionReceiverObject](New-AzActionGroupAzureFunctionReceiverObject.md)
+Create an in-memory object for AzureFunctionReceiver.
+
+### [New-AzActionGroupEmailReceiverObject](New-AzActionGroupEmailReceiverObject.md)
+Create an in-memory object for EmailReceiver.
+
+### [New-AzActionGroupEventHubReceiverObject](New-AzActionGroupEventHubReceiverObject.md)
+Create an in-memory object for EventHubReceiver.
+
+### [New-AzActionGroupItsmReceiverObject](New-AzActionGroupItsmReceiverObject.md)
+Create an in-memory object for ItsmReceiver.
+
+### [New-AzActionGroupLogicAppReceiverObject](New-AzActionGroupLogicAppReceiverObject.md)
+Create an in-memory object for LogicAppReceiver.
+
 ### [New-AzActionGroupNotification](New-AzActionGroupNotification.md)
 Send test notifications to a set of provided receivers
+
+### [New-AzActionGroupSmsReceiverObject](New-AzActionGroupSmsReceiverObject.md)
+Create an in-memory object for SmsReceiver.
+
+### [New-AzActionGroupVoiceReceiverObject](New-AzActionGroupVoiceReceiverObject.md)
+Create an in-memory object for VoiceReceiver.
+
+### [New-AzActionGroupWebhookReceiverObject](New-AzActionGroupWebhookReceiverObject.md)
+Create an in-memory object for WebhookReceiver.
 
 ### [Remove-AzActionGroup](Remove-AzActionGroup.md)
 Delete an action group.

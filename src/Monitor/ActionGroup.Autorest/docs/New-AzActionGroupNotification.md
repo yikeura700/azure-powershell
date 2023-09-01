@@ -24,20 +24,6 @@ New-AzActionGroupNotification -ActionGroupName <String> -ResourceGroupName <Stri
  [<CommonParameters>]
 ```
 
-### Create
-```
-New-AzActionGroupNotification -ActionGroupName <String> -ResourceGroupName <String>
- -NotificationRequest <INotificationRequestBody> [-SubscriptionId <String>] [-DefaultProfile <PSObject>]
- [-AsJob] [-NoWait] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### CreateViaIdentity
-```
-New-AzActionGroupNotification -InputObject <IActionGroupIdentity>
- -NotificationRequest <INotificationRequestBody> [-DefaultProfile <PSObject>] [-AsJob] [-NoWait] [-Confirm]
- [-WhatIf] [<CommonParameters>]
-```
-
 ### CreateViaIdentityExpanded
 ```
 New-AzActionGroupNotification -InputObject <IActionGroupIdentity> -AlertType <String>
@@ -97,7 +83,7 @@ The name of the action group.
 
 ```yaml
 Type: System.String
-Parameter Sets: Create, CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
+Parameter Sets: CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
 Aliases:
 
 Required: True
@@ -257,7 +243,7 @@ To construct, see NOTES section for INPUTOBJECT properties and create a hash tab
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
-Parameter Sets: CreateViaIdentity, CreateViaIdentityExpanded
+Parameter Sets: CreateViaIdentityExpanded
 Aliases:
 
 Required: True
@@ -329,22 +315,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -NotificationRequest
-The request body which contain contact detail metadata
-To construct, see NOTES section for NOTIFICATIONREQUEST properties and create a hash table.
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.INotificationRequestBody
-Parameter Sets: Create, CreateViaIdentity
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -NoWait
 Run the command asynchronously
 
@@ -366,7 +336,7 @@ The name is case insensitive.
 
 ```yaml
 Type: System.String
-Parameter Sets: Create, CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
+Parameter Sets: CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
 Aliases:
 
 Required: True
@@ -397,7 +367,7 @@ The ID of the target subscription.
 
 ```yaml
 Type: System.String
-Parameter Sets: Create, CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
+Parameter Sets: CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
 Aliases:
 
 Required: False
@@ -476,8 +446,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
-
-### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.INotificationRequestBody
 
 ## OUTPUTS
 

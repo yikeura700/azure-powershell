@@ -20,19 +20,6 @@ Enable-AzActionGroupReceiver -ActionGroupName <String> -ResourceGroupName <Strin
  [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-PassThru] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
-### Enable
-```
-Enable-AzActionGroupReceiver -ActionGroupName <String> -ResourceGroupName <String>
- -EnableRequest <IEnableRequest> [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-PassThru]
- [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### EnableViaIdentity
-```
-Enable-AzActionGroupReceiver -InputObject <IActionGroupIdentity> -EnableRequest <IEnableRequest>
- [-DefaultProfile <PSObject>] [-PassThru] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
 ### EnableViaIdentityExpanded
 ```
 Enable-AzActionGroupReceiver -InputObject <IActionGroupIdentity> -ReceiverName <String>
@@ -87,7 +74,7 @@ The name of the action group.
 
 ```yaml
 Type: System.String
-Parameter Sets: Enable, EnableExpanded, EnableViaJsonFilePath, EnableViaJsonString
+Parameter Sets: EnableExpanded, EnableViaJsonFilePath, EnableViaJsonString
 Aliases:
 
 Required: True
@@ -113,29 +100,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EnableRequest
-Describes a receiver that should be resubscribed.
-To construct, see NOTES section for ENABLEREQUEST properties and create a hash table.
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IEnableRequest
-Parameter Sets: Enable, EnableViaIdentity
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -InputObject
 Identity Parameter
 To construct, see NOTES section for INPUTOBJECT properties and create a hash table.
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
-Parameter Sets: EnableViaIdentity, EnableViaIdentityExpanded
+Parameter Sets: EnableViaIdentityExpanded
 Aliases:
 
 Required: True
@@ -211,7 +182,7 @@ The name is case insensitive.
 
 ```yaml
 Type: System.String
-Parameter Sets: Enable, EnableExpanded, EnableViaJsonFilePath, EnableViaJsonString
+Parameter Sets: EnableExpanded, EnableViaJsonFilePath, EnableViaJsonString
 Aliases:
 
 Required: True
@@ -226,7 +197,7 @@ The ID of the target subscription.
 
 ```yaml
 Type: System.String
-Parameter Sets: Enable, EnableExpanded, EnableViaJsonFilePath, EnableViaJsonString
+Parameter Sets: EnableExpanded, EnableViaJsonFilePath, EnableViaJsonString
 Aliases:
 
 Required: False
@@ -274,13 +245,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
 
-### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IEnableRequest
-
 ## OUTPUTS
 
 ### System.Boolean
 
 ## NOTES
+
+ALIASES
+
+New-ActionGroupReceiver
 
 ## RELATED LINKS
 

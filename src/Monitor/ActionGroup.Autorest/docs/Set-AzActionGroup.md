@@ -24,12 +24,6 @@ Set-AzActionGroup -Name <String> -ResourceGroupName <String> -Location <String> 
  [<CommonParameters>]
 ```
 
-### Update
-```
-Set-AzActionGroup -Name <String> -ResourceGroupName <String> -ActionGroup <IActionGroupResource>
- [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
 ### UpdateViaJsonFilePath
 ```
 Set-AzActionGroup -Name <String> -ResourceGroupName <String> -JsonFilePath <String> [-SubscriptionId <String>]
@@ -70,22 +64,6 @@ Create a new action group or update an existing one.
 {{ Add description here }}
 
 ## PARAMETERS
-
-### -ActionGroup
-An action group resource.
-To construct, see NOTES section for ACTIONGROUP properties and create a hash table.
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupResource
-Parameter Sets: Update
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
 
 ### -ArmRoleReceiver
 The list of ARM role receivers that are part of this action group.
@@ -223,7 +201,7 @@ This will be used in SMS messages.
 ```yaml
 Type: System.String
 Parameter Sets: UpdateExpanded
-Aliases:
+Aliases: ShortName
 
 Required: False
 Position: Named
@@ -453,8 +431,6 @@ Accept wildcard characters: False
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
-
-### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupResource
 
 ## OUTPUTS
 

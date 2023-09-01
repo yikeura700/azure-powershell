@@ -24,18 +24,6 @@ New-AzActionGroup -Name <String> -ResourceGroupName <String> -Location <String> 
  [<CommonParameters>]
 ```
 
-### Create
-```
-New-AzActionGroup -Name <String> -ResourceGroupName <String> -ActionGroup <IActionGroupResource>
- [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### CreateViaIdentity
-```
-New-AzActionGroup -InputObject <IActionGroupIdentity> -ActionGroup <IActionGroupResource>
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
 ### CreateViaIdentityExpanded
 ```
 New-AzActionGroup -InputObject <IActionGroupIdentity> -Location <String>
@@ -88,22 +76,6 @@ Create a new action group or update an existing one.
 {{ Add description here }}
 
 ## PARAMETERS
-
-### -ActionGroup
-An action group resource.
-To construct, see NOTES section for ACTIONGROUP properties and create a hash table.
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupResource
-Parameter Sets: Create, CreateViaIdentity
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
 
 ### -ArmRoleReceiver
 The list of ARM role receivers that are part of this action group.
@@ -241,7 +213,7 @@ This will be used in SMS messages.
 ```yaml
 Type: System.String
 Parameter Sets: CreateExpanded, CreateViaIdentityExpanded
-Aliases:
+Aliases: ShortName
 
 Required: False
 Position: Named
@@ -256,7 +228,7 @@ To construct, see NOTES section for INPUTOBJECT properties and create a hash tab
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
-Parameter Sets: CreateViaIdentity, CreateViaIdentityExpanded
+Parameter Sets: CreateViaIdentityExpanded
 Aliases:
 
 Required: True
@@ -348,7 +320,7 @@ The name of the action group.
 
 ```yaml
 Type: System.String
-Parameter Sets: Create, CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
+Parameter Sets: CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
 Aliases: ActionGroupName
 
 Required: True
@@ -364,7 +336,7 @@ The name is case insensitive.
 
 ```yaml
 Type: System.String
-Parameter Sets: Create, CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
+Parameter Sets: CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
 Aliases:
 
 Required: True
@@ -395,7 +367,7 @@ The ID of the target subscription.
 
 ```yaml
 Type: System.String
-Parameter Sets: Create, CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
+Parameter Sets: CreateExpanded, CreateViaJsonFilePath, CreateViaJsonString
 Aliases:
 
 Required: False
@@ -490,13 +462,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
 
-### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupResource
-
 ## OUTPUTS
 
 ### Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupResource
 
 ## NOTES
+
+ALIASES
+
+Set-ActionGroup
 
 ## RELATED LINKS
 

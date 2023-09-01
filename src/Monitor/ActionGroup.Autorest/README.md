@@ -50,46 +50,39 @@ nested-object-to-string: true
 use-extension:
   "@autorest/powershell": "4.x"
 
-# directive:
+directive:
 # #   # Following is two common directive which are normally required in all the RPs
 # #   # 1. Remove the unexpanded parameter set
 # #   # 2. For New-* cmdlets, ViaIdentity is not required, so CreateViaIdentityExpanded is removed as well
-#   - where:
-#       variant: ^Create$|^CreateViaIdentity$|^CreateViaIdentityExpanded$|^Update$|^UpdateViaIdentity$
-#     remove: true
-#   - where:
-#       parameter-name: IdentityUserAssignedIdentity
-#     set:
-#       parameter-name: UserAssignedIdentity
-#   # fix breaking change
-#   - where:
-#       subject: DataCollectionRule
-#       parameter-name: Name
-#     set:
-#       alias: RuleName
-#   - where:
-#       subject: DataCollectionRuleAssociation
-#       parameter-name: ResourceUri
-#     set:
-#       alias: TargetResourceId
-#   - where:
-#       subject: DataCollectionRuleAssociation
-#       parameter-name: DataCollectionRuleId
-#     set:
-#       alias: RuleId
-#   - where:
-#       subject: DataCollectionRuleAssociation
-#       parameter-name: AssociationName
-#     set:
-#       alias: Name
-#   - where:
-#       subject: DataCollectionRuleAssociation
-#       parameter-name: DataCollectionRuleName
-#     set:
-#       alias: RuleName
-#   - where:
-#       subject: DataCollectionRuleAssociation
-#       parameter-name: DataCollectionEndpointName
-#     set:
-#       alias: EndpointName
+  - where:
+      variant: ^(Create|Enable|Update).*(?<!Expanded|JsonFilePath|JsonString)$
+    remove: true
+  - where:
+      verb: Enable
+      subject: ActionGroupReceiver
+    set:
+      alias: New-ActionGroupReceiver
+  - where:
+      verb: New
+      subject: ActionGroup
+    set:
+      alias: Set-ActionGroup
+  # fix breaking change
+  - where:
+      subject: ActionGroup
+      parameter-name: GroupShortName
+    set:
+      alias: ShortName
+  - model-cmdlet:
+    - model-name: ArmRoleReceiver
+    - model-name: AutomationRunbookReceiver
+    - model-name: AzureAppPushReceiver
+    - model-name: AzureFunctionReceiver
+    - model-name: EmailReceiver
+    - model-name: EventHubReceiver
+    - model-name: ItsmReceiver
+    - model-name: LogicAppReceiver
+    - model-name: SmsReceiver
+    - model-name: VoiceReceiver
+    - model-name: WebhookReceiver
 ```
