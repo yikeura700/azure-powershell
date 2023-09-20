@@ -208,7 +208,7 @@ namespace Microsoft.Azure.Commands.Resources
                 () =>
                 {
                     roleAssignments = PoliciesClient.RemoveRoleAssignment(options,
-                        DefaultProfile.DefaultContext.Subscription.Id);
+                        DefaultProfile.DefaultContext.Subscription?.Id);
                     if (PassThru)
                     {
                         WriteObject(roleAssignments, enumerateCollection: true);
