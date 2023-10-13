@@ -1,0 +1,60 @@
+parameters:
+- name: os_linux
+  displayName: Linux Image Version
+  type: string
+  default: ubuntu-20.04
+- name: ps_7_2_x
+  displayName: PowerShell 7.2.x Version
+  type: string
+  default: 7.2.*
+- name: ps_7_3_x
+  displayName: PowerShell 7.3.x Version
+  type: string
+  default: 7.3.*
+- name: ps_latest
+  displayName: PowerShell Latest Version
+  type: string
+  default: latest
+- name: dotnet_sdk_6
+  displayName: .NET 6 SDK Version
+  type: string
+  default: 6.0.x
+- name: dotnet_sdk_7
+  displayName: .NET 7 SDK Version
+  type: string
+  default: 7.0.x
+
+variables:
+  ArtifactsName: LiveTestArtifacts
+  DataLocation: $(Pipeline.Workspace)/$(ArtifactsName)
+  SuppressAzurePowerShellBreakingChangeWarnings: true
+
+stages:
+- stage: Test
+  displayName: Run Live Test
+  jobs:
+
+  - template: util/live-test-steps.yml
+    parameters:
+      name: 'ps_7_2_x_linux'
+      vmImage: ${{ parameters.os_linux }}
+      osType: 'Linux'
+      psVersion: ${{ parameters.ps_7_2_x }}
+      dotnetVersion: ${{ parameters.dotnet_sdk_6 }}
+
+  - template: util/live-test-steps.yml
+    parameters:
+      name: 'ps_7_3_x_linux'
+      vmImage: ${{ parameters.os_linux }}
+      osType: 'Linux'
+      psVersion: ${{ parameters.ps_7_3_x }}
+      dotnetVersion: ${{ parameters.dotnet_sdk_7 }}
+
+  - template: util/live-test-steps.yml
+    parameters:
+      name: 'ps_latest_linux'
+      vmImage: ${{ parameters.os_linux }}
+      osType: 'Linux'
+      psVersion: ${{ parameters.ps_latest }}
+      dotnetVersion: ${{ parameters.dotnet_sdk_7 }}
+
