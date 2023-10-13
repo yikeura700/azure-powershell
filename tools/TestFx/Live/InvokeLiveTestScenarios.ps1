@@ -15,7 +15,7 @@ param (
 $srcDir = Join-Path -Path ${env:BUILD_SOURCESDIRECTORY} -ChildPath "src"
 $liveScenarios = Get-ChildItem -Path $srcDir -Directory -Exclude "Accounts" -ErrorAction SilentlyContinue | Get-ChildItem -Directory -Filter "LiveTests" -Recurse | Get-ChildItem -File -Filter "TestLiveScenarios.ps1" | Select-Object -ExpandProperty FullName
 
-$liveScenarios = $liveScenarios | Where-Object {$_ -like "*Aks*"}
+$liveScenarios = $liveScenarios | Where-Object {($_ -like "*Aks*") -or ($_ -like "*Websites*")}
 
 $maxRunspaces = 9
 [void][int]::TryParse(${env:RSPTHROTTLE}, [ref]$maxRunspaces)
@@ -25,6 +25,9 @@ $rsp.CleanupInterval = [timespan]::FromHours(10) # By default is 15 minutes. Set
 
 $liveJobs = $liveScenarios | ForEach-Object {
     $module = [regex]::match($_, "[\\|\/]src[\\|\/](?<ModuleName>[a-zA-Z]+)[\\|\/]").Groups["ModuleName"].Value
+
+    Write-Host "Module is: " $module
+    Write-Host "liveScenario is: " $_
 
     $ps = [powershell]::Create()
     $ps.RunspacePool = $rsp
