@@ -20,13 +20,13 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     $servicePrincipalSecureSecret = ConvertTo-SecureString -String $ServicePrincipalSecret -AsPlainText -Force
     $servicePrincipalCredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ServicePrincipalId, $servicePrincipalSecureSecret
 
-    Write-Host "##[section]Start to create Aks cluster : New-AzAksCluster"
+    Write-Output "##[section]Start to create Aks cluster : New-AzAksCluster"
     New-AzAksCluster -ResourceGroupName $resourceGroupName -Name $kubeClusterName -SshKeyValue $sshKeyValue -ServicePrincipalIdAndSecret $servicePrincipalCredential
-    Write-Host "##[section]Finished creating Aks cluster : New-AzAksCluster"
+    Write-Output "##[section]Finished creating Aks cluster : New-AzAksCluster"
 
-    Write-Host "##[section]Start to retrieve Aks cluster : Get-AzAksCluster"
+    Write-Output "##[section]Start to retrieve Aks cluster : Get-AzAksCluster"
     $cluster = Get-AzAksCluster -ResourceGroupName $resourceGroupName -Name $kubeClusterName
-    Write-Host "##[section]Finished retrieving Aks cluster : Get-AzAksCluster"
+    Write-Output "##[section]Finished retrieving Aks cluster : Get-AzAksCluster"
 
     Assert-NotNull $cluster.Fqdn
     Assert-NotNull $cluster.KubernetesVersion
@@ -40,9 +40,9 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     Assert-AreEqual 3 $cluster.AgentPoolProfiles[0].Count
     Assert-NotNull $cluster.AgentPoolProfiles[0].NodeImageVersion
 
-    Write-Host "##[section]Start to retrieve Aks node pool : Get-AzAksNodePool"
+    Write-Output "##[section]Start to retrieve Aks node pool : Get-AzAksNodePool"
     $pools = Get-AzAksNodePool -ResourceGroupName $resourceGroupName -ClusterName $kubeClusterName
-    Write-Host "##[section]Finished retrieving Aks node pool : Get-AzAksNodePool"
+    Write-Output "##[section]Finished retrieving Aks node pool : Get-AzAksNodePool"
 
     Assert-NotNull $pools.VmSize
     Assert-NotNull $pools.OsDiskSizeGB
@@ -86,9 +86,9 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     Assert-False {$pools.EnableFIPS}
 
     # step 2: update the aks cluster
-    Write-Host "##[section]Start to update Aks cluster : Set-AzAksCluster"
+    Write-Output "##[section]Start to update Aks cluster : Set-AzAksCluster"
     $cluster = $cluster | Set-AzAksCluster -NodeCount 4 -EnableUptimeSLA
-    Write-Host "##[section]Finished updating Aks cluster : Set-AzAksCluster"
+    Write-Output "##[section]Finished updating Aks cluster : Set-AzAksCluster"
 
     Assert-AreEqual 4 $cluster.AgentPoolProfiles[0].Count
     #Assert-AreEqual "Basic" $cluster.Sku.Name
@@ -98,13 +98,13 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     $pool1Name = "default"
     $pool2Name = "pool2"
 
-    Write-Host "##[section]Start to create Aks node pool : New-AzAksNodePool"
+    Write-Output "##[section]Start to create Aks node pool : New-AzAksNodePool"
     New-AzAksNodePool -ResourceGroupName $resourceGroupName -ClusterName $kubeClusterName -Name $pool2Name -OsType "Windows" -OsSKU "Windows2022" -Count 1 -VmSetType VirtualMachineScaleSets
-    Write-Host "##[section]Finished creating Aks node pool : New-AzAksNodePool"
+    Write-Output "##[section]Finished creating Aks node pool : New-AzAksNodePool"
 
-    Write-Host "##[section]Start to retrieve Aks node pool : Get-AzAksNodePool"
+    Write-Output "##[section]Start to retrieve Aks node pool : Get-AzAksNodePool"
     $pools = Get-AzAksNodePool -ResourceGroupName $resourceGroupName -ClusterName $kubeClusterName
-    Write-Host "##[section]Finished retrieving Aks node pool : Get-AzAksNodePool"
+    Write-Output "##[section]Finished retrieving Aks node pool : Get-AzAksNodePool"
 
     Assert-AreEqual 2 $pools.Count
     Assert-AreEqualArray "Linux" ($pools | where {$_.Name -eq $pool1Name}).OsType
@@ -116,13 +116,13 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     $labels = @{"someId" = 127; "tier" = "frontend"; "environment" = "qa" }
     $tags = @{"dept"="MM"; "costcenter"=7777; "Admin"="Cindy"}
 
-    Write-Host "##[section]Start to update Aks node pool : Update-AzAksNodePool"
+    Write-Output "##[section]Start to update Aks node pool : Update-AzAksNodePool"
     Update-AzAksNodePool -ResourceGroupName $resourceGroupName -ClusterName $kubeClusterName -Name $pool2Name -NodeLabel $labels -Tag $tags
-    Write-Host "##[section]Finished updating Aks node pool : Update-AzAksNodePool"
+    Write-Output "##[section]Finished updating Aks node pool : Update-AzAksNodePool"
 
-    Write-Host "##[section]Start to retrieve Aks cluster : Get-AzAksCluster"
+    Write-Output "##[section]Start to retrieve Aks cluster : Get-AzAksCluster"
     $cluster = Get-AzAksCluster -ResourceGroupName $resourceGroupName -Name $kubeClusterName
-    Write-Host "##[section]Finished retrieving Aks cluster : Get-AzAksCluster"
+    Write-Output "##[section]Finished retrieving Aks cluster : Get-AzAksCluster"
 
     Assert-AreEqual 2 $cluster.AgentPoolProfiles.Count
     Assert-AreEqual 0 ($cluster.AgentPoolProfiles | where {$_.Name -eq $pool1Name}).NodeLabels.Count
@@ -134,9 +134,9 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     Assert-AreEqual 7777 ($cluster.AgentPoolProfiles | where {$_.Name -eq $pool2Name}).Tags.costcenter
     Assert-AreEqual Cindy ($cluster.AgentPoolProfiles | where {$_.Name -eq $pool2Name}).Tags.Admin
 
-    Write-Host "##[section]Start to retrieve Aks node pool : Get-AzAksNodePool"
+    Write-Output "##[section]Start to retrieve Aks node pool : Get-AzAksNodePool"
     $pools = Get-AzAksNodePool -ResourceGroupName $resourceGroupName -ClusterName $kubeClusterName
-    Write-Host "##[section]Finished retrieving Aks node pool : Get-AzAksNodePool"
+    Write-Output "##[section]Finished retrieving Aks node pool : Get-AzAksNodePool"
 
     Assert-AreEqual 2 $pools.Count
     Assert-AreEqual 0 ($pools | where {$_.Name -eq $pool1Name}).NodeLabels.Count
@@ -148,8 +148,8 @@ Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRU
     Assert-AreEqual 7777 ($pools | where {$_.Name -eq $pool2Name}).Tags.costcenter
     Assert-AreEqual Cindy ($pools | where {$_.Name -eq $pool2Name}).Tags.Admin
 
-    Write-Host "##[section]Start to remove Aks cluster : Remove-AzAksCluster"
+    Write-Output "##[section]Start to remove Aks cluster : Remove-AzAksCluster"
     $cluster | Remove-AzAksCluster -Force
-    Write-Host "##[section]Finished removing Aks cluster : Remove-AzAksCluster"
+    Write-Output "##[section]Finished removing Aks cluster : Remove-AzAksCluster"
 
 }
