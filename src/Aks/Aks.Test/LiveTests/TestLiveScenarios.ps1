@@ -1,4 +1,4 @@
-Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRUD and node pool CRU" -Platform Linux -PowerShellVersion Latest -ScenarioScript `
+Invoke-LiveTestScenario -Name "Test_AKS_CURD" -Description "Test AKS Cluster CRUD and node pool CRU" -Platform Linux -ScenarioScript `
 {
     param ($rg)
 
