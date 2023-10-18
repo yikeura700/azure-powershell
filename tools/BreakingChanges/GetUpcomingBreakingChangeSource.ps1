@@ -19,6 +19,7 @@
 # Export-BreakingChangeFileInfo -ArtifactsPath ./artifacts/Debug/
 # ```
 
+
 Function Test-TypeIsGenericBreakingChangeAttribute
 {
     [CmdletBinding()]
@@ -63,38 +64,6 @@ Function Test-TypeIsGenericBreakingChangeWithVersionAttribute
     Return $False
 }
 
-Function Get-AttributeSpecificMessage
-{
-    [CmdletBinding()]
-    Param (
-        [Parameter()]
-        [string]
-        $ModuleName,
-
-        [Parameter()]
-        [System.Object]
-        $attribute
-    )
-    If ($Null -ne $attribute.ChangeDescription)
-    {
-        $Message = $attribute.ChangeDescription
-    }
-    Else
-    {
-        # GenericBreakingChangeAttribute is the base class of the BreakingChangeAttribute classes and have a protected method named as Get-AttributeSpecIficMessage.
-        # We can use this to get the specIfic message to show on document.
-        $Method = $attribute.GetType().GetMethod('GetAttributeSpecificMessage', [System.Reflection.BindingFlags]::NonPublic -bor [System.Reflection.BindingFlags]::Instance)
-
-        $Message = $Method.Invoke($attribute, @()).Trim()
-    }
-    If (-Not ($Message.StartsWith("-")))
-    {
-        $Message = "- $Message"
-    }
-    $Message += "`n- This change is expected to take effect from $ModuleName version: $($attribute.DeprecateByVersion) and Az version: $($attribute.DeprecateByAzVersion)"
-    Return $Message
-}
-
 # Get the breaking change info of the cmdlet.
 Function Find-CmdletBreakingChange
 {
@@ -103,10 +72,12 @@ Function Find-CmdletBreakingChange
         [Parameter()]
         [string]
         $ModuleName,
-
         [Parameter()]
         [System.Management.Automation.CommandInfo]
-        $CmdletInfo
+        $CmdletInfo,
+        [Parameter()]
+        [String]
+        $BreakingChangeInfo
     )
     #Region get breaking change info of cmdlet
     $customAttributes = $CmdletInfo.ImplementingType.GetTypeInfo().GetCustomAttributes([System.object], $true)
@@ -124,7 +95,7 @@ Function Find-CmdletBreakingChange
                 $FilePath = $FilePath.replace("/", "\").split("src\")[1]
             }
 
-            Write-Host "$ModuleName,$CmdletName,$FilePath"
+            $BreakingChangeInfo += "$ModuleName,$CmdletName,$FilePath`n"
         }
     }
     #EndRegion
@@ -141,11 +112,12 @@ Function Find-CmdletBreakingChange
                 {
                     $FilePath = $FilePath.replace("/", "\").split("src\")[1]
                 }
-                Write-Host "$ModuleName,$CmdletName,$FilePath,$($ParameterInfo.Name)"
+                $BreakingChangeInfo += "$ModuleName,$CmdletName,$FilePath,$($ParameterInfo.Name)`n"
             }
         }
     }
     #EndRegion
+    return $BreakingChangeInfo
 }
 
 Function Get-BreakingChangeInfoOfModule
@@ -157,7 +129,10 @@ Function Get-BreakingChangeInfoOfModule
         $ArtifactsPath,
         [Parameter()]
         [String]
-        $ModuleName
+        $ModuleName,
+        [Parameter()]
+        [String]
+        $BreakingChangeInfo
     )
     $ModuleRoot = [System.IO.Path]::Combine($ArtifactsPath, $ModuleName)
 
@@ -167,7 +142,7 @@ Function Get-BreakingChangeInfoOfModule
     {
         $CustomRoot = [System.IO.Path]::Combine($Dll, '..', '..', 'custom')
         $Psm1Path = Get-ChildItem -Path $CustomRoot -Filter *.psm1
-        Get-BreakingChangeOfGeneratedModule -DllPath $Dll -Psm1Path $Psm1Path -ModuleName $ModuleName
+        $BreakingChangeInfo = Get-BreakingChangeOfGeneratedModule -DllPath $Dll -Psm1Path $Psm1Path -ModuleName $ModuleName -BreakingChangeInfo $BreakingChangeInfo
     }
     #EndRegion
 
@@ -179,10 +154,11 @@ Function Get-BreakingChangeInfoOfModule
         $ModuleInfo = Get-Module $ModuleName
         ForEach ($cmdletInfo In $ModuleInfo.ExportedCmdlets.Values)
         {
-            Find-CmdletBreakingChange -ModuleName $ModuleName -CmdletInfo $cmdletInfo
+            $BreakingChangeInfo = Find-CmdletBreakingChange -ModuleName $ModuleName -CmdletInfo $cmdletInfo -BreakingChangeInfo $BreakingChangeInfo
         }
     }
     #EndRegion
+    return $BreakingChangeInfo
 }
 
 Function Get-BreakingChangeOfGeneratedModule
@@ -197,7 +173,10 @@ Function Get-BreakingChangeOfGeneratedModule
         $Psm1Path,
         [Parameter()]
         [String]
-        $ModuleName
+        $ModuleName,
+        [Parameter()]
+        [String]
+        $BreakingChangeInfo
     )
     $ModuleName = $ModuleName.Split(".")[1]
 
@@ -220,7 +199,8 @@ Function Get-BreakingChangeOfGeneratedModule
             $AttributeList = $BreakingChangeCmdlet.GetCustomAttributes($AttributeType, $true)
             ForEach ($Attribute In $AttributeList)
             {
-                Write-Host "$ModuleName,$CmdletName,READMD.md"
+                Write-Host "$ModuleName,$CmdletName,READMD.md`n"
+                $BreakingChangeInfo += "$ModuleName,$CmdletName,READMD.md`n"
             }
         }
     }
@@ -243,7 +223,8 @@ Function Get-BreakingChangeOfGeneratedModule
                 $AttributeList = $Parameter.GetCustomAttributes($AttributeType, $true)
                 ForEach ($Attribute In $AttributeList)
                 {
-                    Write-Host "$ModuleName,$CmdletName,READMD.md,$ParameterName"
+                    Write-Host "$ModuleName,$CmdletName,READMD.md,$ParameterName`n"
+                    $BreakingChangeInfo += "$ModuleName,$CmdletName,READMD.md,$ParameterName`n"
                 }
             }
         
@@ -263,7 +244,8 @@ Function Get-BreakingChangeOfGeneratedModule
         $BreakingChangeAttributes = $BreakingChangeCmdlet.ScriptBlock.Attributes | Where-Object { Test-TypeIsGenericBreakingChangeAttribute $_.TypeId }
         ForEach ($BreakingChangeAttribute In $BreakingChangeAttributes)
         {
-            Write-Host "$ModuleName,$CmdletName,$FilePath"
+            Write-Host "$ModuleName,$CmdletName,$FilePath`n"
+            $BreakingChangeInfo += "$ModuleName,$CmdletName,$FilePath`n"
         }
     }
 
@@ -275,10 +257,12 @@ Function Get-BreakingChangeOfGeneratedModule
         $Parameters = $Cmdlet.Parameters.Values | Where-Object { Test-TypeIsGenericBreakingChangeAttribute $_.Attributes.TypeId }
         ForEach ($Parameter In $Parameters)
         {
-            Write-Host "$ModuleName,$CmdletName,$FilePath,$ParameterName"
+            Write-Host "$ModuleName,$CmdletName,$FilePath,$ParameterName`n"
+            $BreakingChangeInfo += "$ModuleName,$CmdletName,$FilePath,$ParameterName`n"
         }
     }
     #EndRegion
+    return $BreakingChangeInfo
 }
 
 Function Export-BreakingChangeFileInfo
@@ -287,12 +271,16 @@ Function Export-BreakingChangeFileInfo
     Param (
         [Parameter()]
         [String]
-        $ArtifactsPath
+        $ArtifactsPath,
+        [Parameter()]
+        [String]
+        $ExportCsvPath = "BreakingChangeInfo.csv"
     )
+    $BreakingChangeInfo = "ModuleName,CmdletName,FilePath,ParameterName`n"
     $AllModuleList = Get-ChildItem -Path $ArtifactsPath -Filter Az.* | ForEach-Object { $_.Name }
     ForEach ($ModuleName In $AllModuleList)
     {
-        Get-BreakingChangeInfoOfModule -ModuleName $ModuleName -ArtifactsPath $ArtifactsPath
+        $BreakingChangeInfo = Get-BreakingChangeInfoOfModule -ModuleName $ModuleName -ArtifactsPath $ArtifactsPath -BreakingChangeInfo $BreakingChangeInfo
     }
-    Write-Host "ModuleName,CmdletName,FilePath,ParameterName"
+    Set-Content -Value $BreakingChangeInfo -Path $ExportCsvPath -Force
 }
