@@ -15,7 +15,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzActionGroupAzureFunctio
 }
 
 Describe 'New-AzActionGroupAzureFunctionReceiverObject' {
-    It '__AllParameterSets' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It '__AllParameterSets' {
+        {
+            New-AzActionGroupAzureFunctionReceiverObject -FunctionAppResourceId "/subscriptions/5def922a-3ed4-49c1-b9fd-05ec533819a3/resourceGroups/aznsTest/providers/Microsoft.Web/sites/testFunctionApp" -FunctionName HttpTriggerCSharp1 -HttpTriggerUrl "http://test.me" -Name "sample azure function" -UseCommonAlertSchema $true
+        } | Should -Not -Throw
     }
 }

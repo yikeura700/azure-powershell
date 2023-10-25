@@ -15,8 +15,10 @@ if(($null -eq $TestName) -or ($TestName -contains 'Enable-AzActionGroupReceiver'
 }
 
 Describe 'Enable-AzActionGroupReceiver' {
-    It 'EnableExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'EnableExpanded' {
+        {
+            Enable-AzActionGroupReceiver -ActionGroupName $env.actiongroupname -ResourceGroupName $env.resourceGroup -ReceiverName $env.smsreceiver
+        } | Should -Not -Throw
     }
 
     It 'EnableViaJsonString' -skip {
@@ -27,15 +29,10 @@ Describe 'Enable-AzActionGroupReceiver' {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 
-    It 'Enable' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'EnableViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'EnableViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'EnableViaIdentityExpanded' {
+        { 
+            $ag = Get-AzActionGroup -Name $env.actiongroupname -ResourceGroupName $env.resourceGroup
+            Enable-AzActionGroupReceiver -InputObject $ag -ReceiverName $env.emailreceiver
+        } | Should -Not -Throw
     }
 }

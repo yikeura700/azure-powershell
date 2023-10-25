@@ -15,7 +15,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzActionGroupSmsReceiverO
 }
 
 Describe 'New-AzActionGroupSmsReceiverObject' {
-    It '__AllParameterSets' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It '__AllParameterSets' {
+        {
+            New-AzActionGroupSmsReceiverObject -CountryCode 86 -Name user1 -PhoneNumber '01234567890'
+        } | Should -Not -Throw
     }
 }

@@ -18,12 +18,6 @@ Get-AzActionGroupTestNotification -ActionGroupName <String> -NotificationId <Str
  -ResourceGroupName <String> [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
-### GetViaIdentity
-```
-Get-AzActionGroupTestNotification -InputObject <IActionGroupIdentity> [-DefaultProfile <PSObject>]
- [<CommonParameters>]
-```
-
 ### GetViaIdentityActionGroup
 ```
 Get-AzActionGroupTestNotification -ActionGroupInputObject <IActionGroupIdentity> -NotificationId <String>
@@ -35,27 +29,27 @@ Get the test notifications by the notification id
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: Get test result of specified action group
 ```powershell
-{{ Add code here }}
+Get-AzActionGroupTestNotification -ActionGroupName actiongroup1 -ResourceGroupName monitor-action -NotificationId 11000009464546
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+ActionDetail              : {{
+                              "MechanismType": "Sms",
+                              "Name": "user2_-SMSAction-",
+                              "Status": "Succeeded",
+                              "SubState": "Default",
+                              "SendTime": "2023-10-20T07:39:58.3543022+00:00"
+                            }}
+CompletedTime             : 2023-10-20T07:40:30.5419846+00:00
+ContextNotificationSource : Microsoft.Insights/TestNotification
+ContextType               : Microsoft.Insights/ServiceHealth
+CreatedTime               : 2023-10-20T07:39:54.4913346+00:00
+State                     : Complete
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command gets the test notifications by specified action group and notification id.
 
 ## PARAMETERS
 
@@ -106,28 +100,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -InputObject
-Identity Parameter
-To construct, see NOTES section for INPUTOBJECT properties and create a hash table.
-
-```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.Monitor.ActionGroup.Models.IActionGroupIdentity
-Parameter Sets: GetViaIdentity
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -NotificationId
 The notification id
 
 ```yaml
 Type: System.String
-Parameter Sets: Get, GetViaIdentityActionGroup
+Parameter Sets: (All)
 Aliases:
 
 Required: True

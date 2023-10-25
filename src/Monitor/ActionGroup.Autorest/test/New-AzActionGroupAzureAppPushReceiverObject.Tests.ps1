@@ -15,7 +15,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzActionGroupAzureAppPush
 }
 
 Describe 'New-AzActionGroupAzureAppPushReceiverObject' {
-    It '__AllParameterSets' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It '__AllParameterSets' {
+        {
+            New-AzActionGroupAzureAppPushReceiverObject -EmailAddress "johndoe@email.com" -Name "Sample azureAppPush"
+        } | Should -Not -Throw
     }
 }

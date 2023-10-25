@@ -18,6 +18,44 @@ function setupEnv() {
     # as default. You could change them if needed.
     $env.SubscriptionId = (Get-AzContext).Subscription.Id
     $env.Tenant = (Get-AzContext).Tenant.Id
+
+    $env.resourceGroup = 'Monitor-ActionGroup'
+    $env.region = 'northcentralus'
+    
+    Write-Host "Start to create test resource group" $env.resourceGroup
+    try {
+        Get-AzResourceGroup -Name $env.resourceGroup -ErrorAction Stop
+        Write-Host "Get created group"
+    } catch {
+        New-AzResourceGroup -Name $env.resourceGroup -Location $env.region
+    }
+
+    $env.useremail = 'v-jiaji@microsoft.com'
+    $env.emailreceiver = 'emailreceiver1'
+    $env.userphone = '18964587446'
+    $env.phonecountry = '86'
+    $env.smsreceiver = 'smsreceiver'
+
+    $env.actiongroupname = 'actiongroupGet'
+    $env.actiongroup1 = 'actiongroup1'
+    $env.actiongroup3 = 'actiongroup3'
+
+    $env.EventHubNamespaceName = "Namespace$(Get-Random)"
+    New-AzEventHubNamespace -ResourceGroupName $env.resourceGroup -NamespaceName $env.EventHubNamespaceName -Location $env.region
+    $env.eventHubName = "testEventHub$(Get-Random)"
+    New-AzEventHub -ResourceGroupName $env.resourceGroup -NamespaceName $env.EventHubNamespaceName -EventHubName $env.eventHubName
+    Write-Host "create test event hub namespace" $env.EventHubNamespaceName
+    Write-Host "create test event hub" $env.eventHubName
+
+    Write-Host "Start to create test action group" $env.actiongroupname
+    $email1 = New-AzActionGroupEmailReceiverObject -EmailAddress $env.useremail -Name $env.emailreceiver
+    $sms1 = New-AzActionGroupSmsReceiverObject -CountryCode $env.phonecountry -Name $env.smsreceiver -PhoneNumber $env.userphone
+    $ag = New-AzActionGroup -Name $env.actiongroupname -ResourceGroupName $env.resourceGroup -Location southcentralus -EmailReceiver $email1 -SmsReceiver $sms1 -ShortName ag1
+
+    # Failed to get notification id from creation
+    # New-AzActionGroupNotification -ActionGroupName $env.actiongroupname -ResourceGroupName $env.resourceGroup -AlertType servicehealth -EmailReceiver $email1
+    # New-AzActionGroupNotification -InputObject $ag -AlertType servicehealth -EmailReceiver $sms1
+
     # For any resources you created for test, you should add it to $env here.
     $envFile = 'env.json'
     if ($TestMode -eq 'live') {
@@ -27,5 +65,6 @@ function setupEnv() {
 }
 function cleanupEnv() {
     # Clean resources you create for testing
+    Remove-AzActionGroup -Name 'actiongroupGet' -ResourceGroupName 'Monitor-ActionGroup'
 }
 

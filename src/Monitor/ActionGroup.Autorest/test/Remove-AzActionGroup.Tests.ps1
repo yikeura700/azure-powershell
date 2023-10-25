@@ -15,11 +15,16 @@ if(($null -eq $TestName) -or ($TestName -contains 'Remove-AzActionGroup'))
 }
 
 Describe 'Remove-AzActionGroup' {
-    It 'Delete' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Delete' {
+        {
+            Remove-AzActionGroup -Name $env.actiongroup1 -ResourceGroupName $env.resourceGroup
+        } | Should -Not -Throw
     }
 
-    It 'DeleteViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'DeleteViaIdentity' {
+        {
+            $ag = Get-AzActionGroup -Name $env.actiongroup3 -ResourceGroupName $env.resourceGroup
+            Remove-AzActionGroup -InputObject $ag
+        } | Should -Not -Throw
     }
 }

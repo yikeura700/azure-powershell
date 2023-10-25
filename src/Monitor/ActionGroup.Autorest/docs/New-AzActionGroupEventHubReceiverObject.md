@@ -22,27 +22,37 @@ Create an in-memory object for EventHubReceiver.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: create action group event hub receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupEventHubReceiverObject -EventHubName "testEventHub" -EventHubNameSpace "testEventHubNameSpace" -Name "sample eventhub" -SubscriptionId "187f412d-1758-44d9-b052-169e2564721d" -TenantId "68a4459a-ccb8-493c-b9da-dd30457d1b84"
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+EventHubName         : testEventHub
+EventHubNameSpace    : testEventHubNameSpace
+Name                 : sample eventhub
+SubscriptionId       : 187f412d-1758-44d9-b052-169e2564721d
+TenantId             : 68a4459a-ccb8-493c-b9da-dd30457d1b84
+UseCommonAlertSchema : 
 ```
 
-{{ Add description here }}
+This command creates action group event hub receiver object.
 
-### Example 2: {{ Add title here }}
+### Example 2: create another action group event hub receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupEventHubReceiverObject -EventHubName "testEventHub" -EventHubNameSpace "actiongrouptest" -Name "sample eventhub" -SubscriptionId 9e223dbe-3399-4e19-88eb-0975f02ac87f
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+EventHubName         : testEventHub
+EventHubNameSpace    : actiongrouptest
+Name                 : sample eventhub
+SubscriptionId       : 9e223dbe-3399-4e19-88eb-0975f02ac87f
+TenantId             : 
+UseCommonAlertSchema : 
 ```
 
-{{ Add description here }}
+This command creates another action group event hub receiver object.
 
 ## PARAMETERS
 

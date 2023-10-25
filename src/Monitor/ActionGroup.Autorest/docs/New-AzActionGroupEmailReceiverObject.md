@@ -22,27 +22,18 @@ Create an in-memory object for EmailReceiver.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: create action group email receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupEmailReceiverObject -EmailAddress user@example.com -Name user1
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+EmailAddress     Name  Status UseCommonAlertSchema
+------------     ----  ------ --------------------
+user@example.com user1 
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command creates action group email receiver object.
 
 ## PARAMETERS
 

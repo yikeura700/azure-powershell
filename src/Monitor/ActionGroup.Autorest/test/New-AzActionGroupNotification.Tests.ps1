@@ -15,8 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzActionGroupNotification
 }
 
 Describe 'New-AzActionGroupNotification' {
-    It 'CreateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateExpanded' {
+        {
+            $email1 = New-AzActionGroupEmailReceiverObject -EmailAddress $env.useremail -Name $env.emailreceiver
+            New-AzActionGroupNotification -ActionGroupName $env.actiongroupname -ResourceGroupName $env.resourceGroup -AlertType servicehealth -EmailReceiver $email1
+        } | Should -Not -Throw
     }
 
     It 'CreateViaJsonString' -skip {
@@ -27,15 +30,11 @@ Describe 'New-AzActionGroupNotification' {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 
-    It 'Create' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateViaIdentityExpanded' {
+        {
+            $sms1 = New-AzActionGroupSmsReceiverObject -CountryCode $env.phonecountry -Name $env.smsreceiver -PhoneNumber $env.userphone
+            $ag = Get-AzActionGroup -Name $env.actiongroupname -ResourceGroupName $env.resourceGroup
+            New-AzActionGroupNotification -InputObject $ag -AlertType servicehealth -SmsReceiver $sms1
+        } | Should -Not -Throw
     }
 }

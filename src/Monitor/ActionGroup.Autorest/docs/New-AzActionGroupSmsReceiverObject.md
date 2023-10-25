@@ -22,27 +22,18 @@ Create an in-memory object for SmsReceiver.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: create action group sms receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupSmsReceiverObject -CountryCode 86 -Name user1 -PhoneNumber '01234567890'
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+CountryCode Name  PhoneNumber Status
+----------- ----  ----------- ------
+86          user1 01234567890
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command creates action group sms receiver object.
 
 ## PARAMETERS
 

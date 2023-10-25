@@ -39,27 +39,49 @@ Get an action group.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: Get action groups by subscription ID
 ```powershell
-{{ Add code here }}
+Get-AzActionGroup -SubscriptionId {subid}
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+Location       Name         ResourceGroupName
+--------       ----         -----------------
+northcentralus actiongroup1 Monitor-Action
+northcentralus actiongroup2 Monitor-Action
 ```
 
-{{ Add description here }}
+This command gets list of action groups by specified subscription.
 
-### Example 2: {{ Add title here }}
+### Example 2: Get specific action groups with specified resource group
 ```powershell
-{{ Add code here }}
+Get-AzActionGroup -Name actiongroup1 -ResourceGroupName monitor-action
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+ArmRoleReceiver           : {}
+AutomationRunbookReceiver : {}
+AzureAppPushReceiver      : {}
+AzureFunctionReceiver     : {}
+EmailReceiver             : {}
+Enabled                   : False
+EventHubReceiver          : {}
+GroupShortName            : ag1
+Id                        : /subscriptions/{subid}/resourceGroups/Monitor-Action/providers/microsoft.insights/actionGroups/actiongroup1
+ItsmReceiver              : {}
+Location                  : northcentralus
+LogicAppReceiver          : {}
+Name                      : actiongroup1
+ResourceGroupName         : Monitor-Action
+SmsReceiver               : {}
+Tag                       : {
+                            }
+Type                      : Microsoft.Insights/ActionGroups
+VoiceReceiver             : {}
+WebhookReceiver           : {}
 ```
 
-{{ Add description here }}
+This command gets specific action group with specified resource group.
 
 ## PARAMETERS
 

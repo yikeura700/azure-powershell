@@ -15,8 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'Update-AzActionGroup'))
 }
 
 Describe 'Update-AzActionGroup' {
-    It 'UpdateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'UpdateExpanded' {
+        {
+            $enventhub = New-AzActionGroupEventHubReceiverObject -EventHubName $env.eventHubName -EventHubNameSpace $env.EventHubNamespaceName -Name "sample eventhub" -SubscriptionId $env.subscriptionId
+            Update-AzActionGroup -Name $env.actiongroupname -ResourceGroupName $env.resourceGroup -EventHubReceiver $enventhub
+        } | Should -Not -Throw
     }
 
     It 'UpdateViaJsonString' -skip {
@@ -27,15 +30,10 @@ Describe 'Update-AzActionGroup' {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 
-    It 'Update' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'UpdateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'UpdateViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'UpdateViaIdentityExpanded' {
+        {
+            $ag = Get-AzActionGroup -Name $env.actiongroupname -ResourceGroupName $env.resourceGroup
+            Update-AzActionGroup -InputObject $ag -EventHubReceiver $null
+        } | Should -Not -Throw
     }
 }

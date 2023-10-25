@@ -15,8 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzActionGroup'))
 }
 
 Describe 'New-AzActionGroup' {
-    It 'CreateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateExpanded' {
+        {
+            $enventhub = New-AzActionGroupEventHubReceiverObject -EventHubName $env.eventHubName -EventHubNameSpace $env.EventHubNamespaceName -Name "sample eventhub" -SubscriptionId $env.subscriptionId
+            New-AzActionGroup -Name $env.actiongroup1 -ResourceGroupName $env.resourceGroup -Location $env.region -GroupShortName 'ag1' -EventHubReceiver $enventhub
+        } | Should -Not -Throw
     }
 
     It 'CreateViaJsonString' -skip {
@@ -27,15 +30,7 @@ Describe 'New-AzActionGroup' {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 
-    It 'Create' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
     It 'CreateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentity' -skip {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 }

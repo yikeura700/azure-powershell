@@ -16,7 +16,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzActionGroupTestNotifica
 
 Describe 'Get-AzActionGroupTestNotification' {
     It 'Get' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+        {
+            Get-AzActionGroupTestNotification -ActionGroupName $env.actiongroupname -NotificationId 'String' -ResourceGroupName $env.resourceGroup
+        } | Should -Not -Throw
     }
 
     It 'GetViaIdentityActionGroup' -skip {

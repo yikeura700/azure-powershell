@@ -1,22 +1,13 @@
-### Example 1: {{ Add title here }}
+### Example 1: create action group voice receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupVoiceReceiverObject -CountryCode 86 -Name "sample voice" -PhoneNumber 01234567890
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+CountryCode Name         PhoneNumber                                                                                                   
+----------- ----         -----------
+86          sample voice 01234567890
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command creates action group voice receiver object.
 

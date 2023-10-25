@@ -51,6 +51,7 @@ use-extension:
   "@autorest/powershell": "4.x"
 
 directive:
+  - remove-operation: ActionGroups_Update
 # #   # Following is two common directive which are normally required in all the RPs
 # #   # 1. Remove the unexpanded parameter set
 # #   # 2. For New-* cmdlets, ViaIdentity is not required, so CreateViaIdentityExpanded is removed as well
@@ -58,15 +59,13 @@ directive:
       variant: ^(Create|Enable|Update).*(?<!Expanded|JsonFilePath|JsonString)$
     remove: true
   - where:
-      verb: Enable
-      subject: ActionGroupReceiver
-    set:
-      alias: New-ActionGroupReceiver
-  - where:
-      verb: New
+      verb: Set
       subject: ActionGroup
-    set:
-      alias: Set-ActionGroup
+    hide: true
+  - where:
+      variant: GetViaIdentity
+      subject: ActionGroupTestNotification
+    hide: true
   # fix breaking change
   - where:
       subject: ActionGroup

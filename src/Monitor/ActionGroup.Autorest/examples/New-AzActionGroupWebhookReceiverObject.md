@@ -1,22 +1,34 @@
-### Example 1: {{ Add title here }}
+### Example 1: create action group webhook receiver with aad auth
 ```powershell
-{{ Add code here }}
+New-AzActionGroupWebhookReceiverObject -Name "sample webhook" -ServiceUri "http://www.example.com/webhook1" -IdentifierUri "http://someidentifier/d7811ba3-7996-4a93-99b6-6b2f3f355f8a" -ObjectId "d3bb868c-fe44-452c-aa26-769a6538c808" -TenantId 68a4459a-ccb8-493c-b9da-dd30457d1b84 -UseAadAuth $true -UseCommonAlertSchema $true
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+IdentifierUri        : http://someidentifier/d7811ba3-7996-4a93-99b6-6b2f3f355f8a
+Name                 : sample webhook
+ObjectId             : d3bb868c-fe44-452c-aa26-769a6538c808
+ServiceUri           : http://www.example.com/webhook1
+TenantId             : 68a4459a-ccb8-493c-b9da-dd30457d1b84
+UseAadAuth           : True
+UseCommonAlertSchema : True
 ```
 
-{{ Add description here }}
+This command creates action group webhook receiver object.
 
-### Example 2: {{ Add title here }}
+### Example 2: create minimum action group webhook receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupWebhookReceiverObject -Name "sample webhook" -ServiceUri "http://www.example.com/webhook2"                                                        
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+IdentifierUri        : 
+Name                 : sample webhook
+ObjectId             : 
+ServiceUri           : http://www.example.com/webhook2
+TenantId             : 
+UseAadAuth           : 
+UseCommonAlertSchema : 
 ```
 
-{{ Add description here }}
+This command creates action group email receiver object.
 

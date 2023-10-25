@@ -22,27 +22,20 @@ Create an in-memory object for AzureFunctionReceiver.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: create action group azure function receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupAzureFunctionReceiverObject -FunctionAppResourceId "/subscriptions/5def922a-3ed4-49c1-b9fd-05ec533819a3/resourceGroups/aznsTest/providers/Microsoft.Web/sites/testFunctionApp" -FunctionName HttpTriggerCSharp1 -HttpTriggerUrl "http://test.me" -Name "sample azure function" -UseCommonAlertSchema $true
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+FunctionAppResourceId : /subscriptions/5def922a-3ed4-49c1-b9fd-05ec533819a3/resourceGroups/aznsTest/providers/Microsoft.Web/sites/testFunctionApp
+FunctionName          : HttpTriggerCSharp1
+HttpTriggerUrl        : http://test.me
+Name                  : sample azure function
+UseCommonAlertSchema  : True
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command creates action group azure function receiver object.
 
 ## PARAMETERS
 

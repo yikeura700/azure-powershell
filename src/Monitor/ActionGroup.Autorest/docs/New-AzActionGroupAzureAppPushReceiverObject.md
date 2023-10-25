@@ -21,27 +21,18 @@ Create an in-memory object for AzureAppPushReceiver.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: create action group app push receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupAzureAppPushReceiverObject -EmailAddress "johndoe@email.com" -Name "Sample azureAppPush"
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+EmailAddress      Name
+------------      ----
+johndoe@email.com Sample azureAppPush
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command creates action group app push receiver object.
 
 ## PARAMETERS
 

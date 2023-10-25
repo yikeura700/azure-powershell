@@ -64,10 +64,6 @@ Create an in-memory object for WebhookReceiver.
 ### [Remove-AzActionGroup](Remove-AzActionGroup.md)
 Delete an action group.
 
-### [Set-AzActionGroup](Set-AzActionGroup.md)
-Create a new action group or update an existing one.
-
 ### [Update-AzActionGroup](Update-AzActionGroup.md)
-Updates an existing action group's tags.
-To update other fields use the CreateOrUpdate method.
+Create a new action group or update an existing one.
 

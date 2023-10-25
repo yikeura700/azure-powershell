@@ -15,7 +15,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzActionGroupArmRoleRecei
 }
 
 Describe 'New-AzActionGroupArmRoleReceiverObject' {
-    It '__AllParameterSets' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It '__AllParameterSets' {
+        {
+            New-AzActionGroupArmRoleReceiverObject -Name "sample arm role" -RoleId "8e3af657-a8ff-443c-a75c-2fe8c4bcb635" -UseCommonAlertSchema $true
+        } | Should -Not -Throw
     }
 }

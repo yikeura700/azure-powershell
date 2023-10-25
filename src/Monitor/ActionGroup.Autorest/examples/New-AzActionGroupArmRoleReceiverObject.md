@@ -1,22 +1,13 @@
-### Example 1: {{ Add title here }}
+### Example 1: create action group arm role receiver
 ```powershell
-{{ Add code here }}
+New-AzActionGroupArmRoleReceiverObject -Name "sample arm role" -RoleId "8e3af657-a8ff-443c-a75c-2fe8c4bcb635" -UseCommonAlertSchema $true
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+Name            RoleId                               UseCommonAlertSchema
+----            ------                               --------------------
+sample arm role 8e3af657-a8ff-443c-a75c-2fe8c4bcb635                 True
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command creates action group arm role receiver object.
 

@@ -15,19 +15,29 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzActionGroup'))
 }
 
 Describe 'Get-AzActionGroup' {
-    It 'List' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'GetViaIdentity' {
+        {
+            $ag = New-AzActionGroup -Name $env.actiongroup3 -ResourceGroupName $env.resourceGroup -Location $env.region -GroupShortName 'ag3'
+            Get-AzActionGroup -InputObject $ag
+        } | Should -Not -Throw
     }
 
-    It 'Get' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'List' {
+        {
+            Get-AzActionGroup -SubscriptionId $env.SubscriptionId
+        } | Should -Not -Throw
     }
 
-    It 'List1' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Get' {
+        {
+            Get-AzActionGroup -Name $env.actiongroupname -ResourceGroupName $env.resourceGroup
+        } | Should -Not -Throw
     }
 
-    It 'GetViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'List1' {
+        {
+            Get-AzActionGroup -ResourceGroupName $env.resourceGroup
+        } | Should -Not -Throw
     }
+
 }

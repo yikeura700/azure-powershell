@@ -45,27 +45,16 @@ This operation is only supported for Email or SMS receivers.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: Enable a receiver for specified action group
 ```powershell
-{{ Add code here }}
+Enable-AzActionGroupReceiver -ActionGroupName actiongroup1 -ResourceGroupName monitor-action -ReceiverName user1 -PassThru
 ```
 
 ```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
+True
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-{{ Add code here }}
-```
-
-```output
-{{ Add output here (remove the output block if the example doesn't have an output) }}
-```
-
-{{ Add description here }}
+This command enable a receiver in an action group.
 
 ## PARAMETERS
 
@@ -250,10 +239,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Boolean
 
 ## NOTES
-
-ALIASES
-
-New-ActionGroupReceiver
 
 ## RELATED LINKS
 
