@@ -192,11 +192,19 @@ function Get-ExistSerializedCmdletJsonFile
 
 function Bump-AzVersion
 {
-    Write-Host "Getting local Az information..." -ForegroundColor Yellow
-    $localAz = Import-PowerShellDataFile -Path "$PSScriptRoot\Az\Az.psd1"
+    Param(
+        [Parameter(Mandatory = $false)]
+        [switch]$IsPreview
+    )
+    $ModuleName = "Az"
+    if ($IsPreview) {
+        $ModuleName = "AzPreview"
+    }
+    Write-Host "Getting local $ModuleName information..." -ForegroundColor Yellow
+    $localAz = Import-PowerShellDataFile -Path "$PSScriptRoot\$ModuleName\$ModuleName.psd1"
 
-    Write-Host "Getting gallery Az information..." -ForegroundColor Yellow
-    $galleryAz = Find-Module -Name Az -Repository $GalleryName
+    Write-Host "Getting gallery $ModuleName information..." -ForegroundColor Yellow
+    $galleryAz = Find-Module -Name $ModuleName -Repository $GalleryName
 
     $versionBump = [PSVersion]::NONE
     $updatedModules = @()
@@ -249,19 +257,21 @@ function Bump-AzVersion
 
     if ($versionBump -eq [PSVersion]::NONE)
     {
-        Write-Host "No changes found in Az." -ForegroundColor Green
+        Write-Host "No changes found in $ModuleName." -ForegroundColor Green
         return
     }
 
     $newVersion = Get-BumpedVersion -Version $localAz.ModuleVersion -VersionBump $versionBump
 
-    Write-Host "New version of Az: $newVersion" -ForegroundColor Green
+    Write-Host "New version of $ModuleName : $newVersion" -ForegroundColor Green
 
-    $rootPath = "$PSScriptRoot\.."
     $oldVersion = $galleryAz.Version
+    $rootPath = "$PSScriptRoot\.."
 
-    Update-AzurecmdFile -OldVersion $oldVersion -NewVersion $newVersion -Release $Release -RootPath $rootPath
-
+    if (-not $IsPreview)
+    {
+        Update-AzurecmdFile -OldVersion $oldVersion -NewVersion $newVersion -Release $Release -RootPath $rootPath
+    } 
     # This was moved to the common repo
     # Update-AzurePowerShellFile -OldVersion $oldVersion -NewVersion $newVersion -RootPath $rootPath
 
@@ -294,7 +304,12 @@ function Bump-AzVersion
         $env:PSModulePath += ";$resolvedArtifactsOutputPath"
     }
 
-    Update-ModuleManifest -Path "$PSScriptRoot\Az\Az.psd1" -ModuleVersion $newVersion -ReleaseNotes $releaseNotes
+    Update-ModuleManifest -Path "$PSScriptRoot\$ModuleName\$ModuleName.psd1" -ModuleVersion $newVersion -ReleaseNotes $releaseNotes
+
+    if ($IsPreview)
+    {
+        $rootPath = " $rootPath/tools/AzPreview"
+    }
     Update-ChangeLog -Content $changeLog -RootPath $rootPath
 
     New-CommandMappingFile
@@ -436,9 +451,9 @@ switch ($PSCmdlet.ParameterSetName)
 
         Write-Host executing dotnet $PSScriptRoot/../artifacts/VersionController/VersionController.Netcore.dll
         dotnet $PSScriptRoot/../artifacts/VersionController/VersionController.Netcore.dll
-
+        Update-AzPreview
         $versionBump = Bump-AzVersion
-
+        Bump-AzVersion -IsPreview
         # We need to generate the upcoming-breaking-changes.md after the process of bump version in minor release
         if ([PSVersion]::MINOR -Eq $versionBump)
         {
